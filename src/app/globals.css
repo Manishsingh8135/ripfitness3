@@ -2,20 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Existing variables */
+    /* ...existing theme variables from the user... */
+
+    /* Additional Premium Theme Variables */
+    --gold-primary: #FFD700;
+    --gold-warm: #FDB931;
+    --gold-dark: #C6930A;
+    --gold-royal: #DAA520;
+
+    --transition-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-basic-glow: 0 0 20px rgba(218,165,32,0.2);
+    --shadow-hover-glow: 0 0 30px rgba(218,165,32,0.3);
+    --shadow-text-glow: 0 0 10px rgba(255,215,0,0.5);
+  }
+
+  /* Light/Dark mode existing rules remain as is */
+  /* ...existing dark mode rules... */
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  /* Heading & Text styles from existing code */
+  h1 {
+    @apply text-h1 font-heading mb-6;
+  }
+  h2 {
+    @apply text-h2 font-heading mb-4;
+  }
+  h3 {
+    @apply text-h3 font-heading mb-4;
+  }
+  h4 {
+    @apply text-h4 font-heading mb-3;
+  }
+  p {
+    @apply text-body mb-4;
+  }
+  a {
+    @apply transition-colors duration-200 text-primary-500 hover:text-primary-600;
+  }
+
+  /* Additional text utilities */
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Premium Text Effects */
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, var(--gold-primary), var(--gold-warm), var(--gold-dark));
+  }
+
+  .text-glow {
+    text-shadow: var(--shadow-text-glow);
+  }
+
+  /* Buttons */
+  .btn {
+    @apply relative inline-flex items-center justify-center px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-out overflow-hidden;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-r from-[var(--gold-primary)] via-[var(--gold-warm)] to-[var(--gold-dark)] text-black shadow-[var(--shadow-basic-glow)];
+  }
+  .btn-primary:hover {
+    @apply shadow-[var(--shadow-hover-glow)] scale-[1.02];
+  }
+
+  .btn-secondary {
+    @apply bg-black/10 backdrop-blur-sm text-white border-2 border-[color:var(--gold-primary)/50];
+  }
+  .btn-secondary:hover {
+    @apply border-[color:var(--gold-primary)] bg-black/20;
+  }
+
+  .btn-ghost {
+    @apply text-white/80 hover:text-white hover:bg-white/5;
+  }
+
+  /* Cards */
+  .card {
+    @apply relative rounded-3xl overflow-hidden transition-all duration-300;
+  }
+  .card-glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 hover:scale-[1.02] hover:border-[color:var(--gold-primary)/40] hover:shadow-[var(--shadow-basic-glow)];
+  }
+  .card-gradient {
+    @apply bg-gradient-to-br from-[color:var(--gold-primary)/10] via-black/50 to-[color:var(--gold-dark)/10] border border-[color:var(--gold-primary)/20] hover:scale-[1.02] hover:border-[color:var(--gold-primary)/40] hover:shadow-[var(--shadow-basic-glow)];
+  }
+  .card-solid {
+    @apply bg-black/40 border border-[color:var(--gold-primary)/20] hover:scale-[1.02] hover:border-[color:var(--gold-primary)/40] hover:shadow-[var(--shadow-basic-glow)];
+  }
+
+  /* Gradient line */
+  .gradient-line {
+    @apply h-0.5 bg-gradient-to-r from-transparent via-[var(--gold-primary)] to-transparent;
+  }
+
+  /* Hover scale utility */
+  .hover-scale {
+    @apply transition-transform duration-300;
+  }
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+}
+
+@layer utilities {
+  /* Reuse existing animations and add new ones if needed */
+
+  .animate-in {
+    animation: animate-in 0.3s ease-in-out;
+  }
+
+  .animate-out {
+    animation: animate-out 0.3s ease-in-out;
+  }
+
+  @keyframes animate-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes animate-out {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(10px); }
+  }
 }
